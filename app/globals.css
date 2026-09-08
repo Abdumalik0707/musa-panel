@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-jakarta: var(--font-jakarta);
+  --font-dm: var(--font-dm);
+}
+
+/* ── Light mode ── */
+:root {
+  --bg: #ffffff;
+  --bg-2: #f8f7f5;
+  --surface: #ffffff;
+  --surface-2: #f3f2ef;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.15);
+  --fg: #111111;
+  --muted: rgba(17, 17, 17, 0.52);
+  --muted-2: rgba(17, 17, 17, 0.32);
+  --accent: #ff6b35;
+  --accent-2: #ff8c5a;
+  --accent-bg: rgba(255, 107, 53, 0.10);
+  --accent-text: #c03a00;
+  --green: #16a34a;
+  --red: #dc2626;
+  --amber: #d97706;
+  --blue: #2563eb;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+}
+
+/* ── Dark mode ── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d0d0d;
+    --bg-2: #141414;
+    --surface: #1a1a1a;
+    --surface-2: #222222;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.15);
+    --fg: #f0f0f0;
+    --muted: rgba(240, 240, 240, 0.50);
+    --muted-2: rgba(240, 240, 240, 0.30);
+    --accent: #ff7a47;
+    --accent-2: #ff9669;
+    --accent-bg: rgba(255, 107, 53, 0.15);
+    --accent-text: #ffb08a;
+    --shadow: 0 4px 24px rgba(0,0,0,0.40);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,0.60);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0d0d0d;
+  --bg-2: #141414;
+  --surface: #1a1a1a;
+  --surface-2: #222222;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --fg: #f0f0f0;
+  --muted: rgba(240, 240, 240, 0.50);
+  --muted-2: rgba(240, 240, 240, 0.30);
+  --accent: #ff7a47;
+  --accent-2: #ff9669;
+  --accent-bg: rgba(255, 107, 53, 0.15);
+  --accent-text: #ffb08a;
+  --shadow: 0 4px 24px rgba(0,0,0,0.40);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.60);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-dm, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
