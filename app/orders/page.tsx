@@ -92,6 +92,18 @@ export default function OrdersKanbanPage() {
     }
   };
 
+  const deleteOrder = async (orderId: string) => {
+    try {
+      const res = await fetch(`/api/orders/${orderId}`, { method: "DELETE" });
+      const data = await res.json();
+      if (data.success) {
+        setOrders((prev) => prev.filter((o) => o._id !== orderId));
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
   const handleDragStart = (orderId: string) => {
     setDraggedOrder(orderId);
   };
@@ -284,18 +296,34 @@ export default function OrdersKanbanPage() {
                           📞 {order.customerPhone}
                         </div>
                       </div>
-                      <span
-                        style={{
-                          padding: "3px 8px",
-                          borderRadius: 8,
-                          fontSize: 10,
-                          fontWeight: 700,
-                          background: order.customerType === "shop" ? "#f59e0b20" : "#3b82f620",
-                          color: order.customerType === "shop" ? "#f59e0b" : "#3b82f6",
-                        }}
-                      >
-                        {order.customerType === "shop" ? `🏪 ${t("badge_shop")}` : `👤 ${t("badge_customer")}`}
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                        <span
+                          style={{
+                            padding: "3px 8px",
+                            borderRadius: 8,
+                            fontSize: 10,
+                            fontWeight: 700,
+                            background: order.customerType === "shop" ? "#f59e0b20" : "#3b82f620",
+                            color: order.customerType === "shop" ? "#f59e0b" : "#3b82f6",
+                          }}
+                        >
+                          {order.customerType === "shop" ? `🏪 ${t("badge_shop")}` : `👤 ${t("badge_customer")}`}
+                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (confirm(t("confirm_delete_order"))) deleteOrder(order._id);
+                          }}
+                          style={{
+                            width: 22, height: 22, borderRadius: 6, border: "1px solid var(--border)",
+                            background: "var(--surface-2)", color: "var(--red)", fontSize: 12,
+                            cursor: "pointer", display: "grid", placeItems: "center", flexShrink: 0,
+                          }}
+                          title={t("action_delete")}
+                        >
+                          ✕
+                        </button>
+                      </div>
                     </div>
 
                     {/* Address */}
@@ -413,6 +441,10 @@ export default function OrdersKanbanPage() {
           onClose={() => setSelectedOrder(null)}
           onStatusChange={(id, status) => {
             updateOrderStatus(id, status);
+            setSelectedOrder(null);
+          }}
+          onDelete={(id) => {
+            deleteOrder(id);
             setSelectedOrder(null);
           }}
         />

@@ -34,9 +34,10 @@ interface Props {
   order: Order;
   onClose: () => void;
   onStatusChange: (orderId: string, status: OrderStatus) => void;
+  onDelete: (orderId: string) => void;
 }
 
-export function OrderDetailModal({ order, onClose, onStatusChange }: Props) {
+export function OrderDetailModal({ order, onClose, onStatusChange, onDelete }: Props) {
   const { t } = useLanguage();
   const STAGES: { id: OrderStatus; label: string; icon: string; color: string }[] = [
     { id: "yangi_mijoz", label: t("status_new"), icon: "🆕", color: "#3b82f6" },
@@ -152,6 +153,20 @@ export function OrderDetailModal({ order, onClose, onStatusChange }: Props) {
             ))}
           </div>
         </div>
+
+        {/* Delete */}
+        <button
+          onClick={() => {
+            if (confirm(t("confirm_delete_order"))) onDelete(order._id);
+          }}
+          style={{
+            marginTop: 20, width: "100%", padding: "12px", borderRadius: 12, cursor: "pointer",
+            fontSize: 13, fontWeight: 700, border: "1px solid rgba(239,68,68,0.3)",
+            background: "rgba(239,68,68,0.1)", color: "var(--red)",
+          }}
+        >
+          {t("detail_delete_order")}
+        </button>
       </div>
     </div>
   );

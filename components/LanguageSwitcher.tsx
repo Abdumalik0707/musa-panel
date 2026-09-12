@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useLanguage, type Lang } from "@/lib/i18n";
 
 const LABELS: Record<Lang, string> = { uz: "UZ", ru: "RU", en: "EN" };
-const FLAGS: Record<Lang, string> = { uz: "🇺🇿", ru: "🇷🇺", en: "🇬🇧" };
 
 export function LanguageSwitcher() {
   const { lang, setLang } = useLanguage();
@@ -20,7 +19,7 @@ export function LanguageSwitcher() {
           color: "var(--fg)", fontSize: 13, fontWeight: 700,
         }}
       >
-        {FLAGS[lang]} {LABELS[lang]}
+        {LABELS[lang]}
         <span style={{ fontSize: 9, opacity: 0.6 }}>▼</span>
       </button>
 
@@ -46,7 +45,7 @@ export function LanguageSwitcher() {
                   fontSize: 13, fontWeight: 600,
                 }}
               >
-                {FLAGS[l]} {LABELS[l]}
+                {LABELS[l]}
               </button>
             ))}
           </div>
